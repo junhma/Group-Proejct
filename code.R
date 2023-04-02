@@ -36,7 +36,7 @@ plot_ly(insurance, x = age, y = bmi, z = charges, colors = charges, type = "scat
 sex_counts <- table(insurance$sex)
 sex_percent <- round(prop.table(sex_counts) * 100, 1)
 pie(sex_counts,
-    main = "Distribution of Sex",
+    main = "Sex Distribution",
     col = c("lightblue", "lightpink"),
     labels = paste0(names(sex_counts), ": ", sex_percent, "%"),
     cex = 1.2)
@@ -45,8 +45,8 @@ pie(sex_counts,
 smoker_counts <- table(insurance$smoker)
 smoker_percent <- round(prop.table(smoker_counts) * 100, 1)
 pie(smoker_counts,
-    main = "Distribution of Smoker Status in Insurance Dataset",
-    col = c("lightblue", "lightpink"),
+    main = "Smoker Status",
+    col = c("white", "grey"),
     labels = paste0(names(smoker_counts), ": ", smoker_percent, "%"),
     cex = 1.2)
 
@@ -59,7 +59,7 @@ test_set <- insurance[-training_index,]
 
 best_subset <- regsubsets(charges ~ (.)^2, data = training_set, nbest = 1, nvmax = 8, method = "forward")
 
-reg <- summary(best_subset)
-summary(best_subset)$which
+best_subset_summary <- summary(best_subset)
+best_subset_summary$which
 
-plot(reg$bic, xlab = "Parameter", ylab = "BIC")
+plot(best_subset_summary$bic, xlab = "Parameter", ylab = "BIC")
